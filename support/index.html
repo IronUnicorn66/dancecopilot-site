@@ -4,46 +4,87 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>支持 / Support · 扒舞搭子 / DanceCopilot</title>
+    <meta
+      name="description"
+      content="扒舞搭子技术支持。使用问题、会员问题或功能建议请发邮件至 ironunicorn@163.com。"
+    />
+    <link rel="icon" href="../assets/favicon.png" type="image/png" />
+    <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png" />
     <link rel="stylesheet" href="../styles.css" />
   </head>
   <body>
+    <header class="site-header">
+      <div class="wrap">
+        <a class="brand" href="/">
+          <img
+            src="../assets/apple-touch-icon.png"
+            width="36"
+            height="36"
+            alt=""
+          />
+          <span class="brand-text">
+            <span class="brand-zh">扒舞搭子</span>
+            <span class="brand-en">DanceCopilot</span>
+          </span>
+        </a>
+        <nav>
+          <a href="/"
+            ><span lang="zh-CN">首页</span><span lang="en">Home</span></a
+          >
+          <a href="/support" aria-current="page"
+            ><span lang="zh-CN">支持</span><span lang="en">Support</span></a
+          >
+          <a href="/privacy"
+            ><span lang="zh-CN">隐私</span><span lang="en">Privacy</span></a
+          >
+        </nav>
+        <div class="lang">
+          <button type="button" data-lang="zh" aria-pressed="true">中文</button>
+          <button type="button" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+      </div>
+    </header>
+
     <main>
-      <nav>
-        <a href="/">首页 / Home</a>
-        <a href="/support" aria-current="page">支持 / Support</a>
-        <a href="/privacy">隐私 / Privacy</a>
-      </nav>
-      <h1>支持 / Support</h1>
-      <p class="meta">扒舞搭子 / DanceCopilot</p>
+      <div class="wrap">
+        <header class="hero">
+          <p class="kicker" lang="zh-CN">技术支持</p>
+          <p class="kicker" lang="en">Support</p>
+          <h1 lang="zh-CN">联系开发者</h1>
+          <h1 lang="en">Contact the developer</h1>
+          <p class="lede" lang="zh-CN">
+            使用问题、会员问题或功能建议，请发邮件。我们会通过同一邮箱回复。
+          </p>
+          <p class="lede" lang="en">
+            For help with the app, membership questions, or feature
+            suggestions, send an email. Replies come from the same address.
+          </p>
+        </header>
 
-      <section lang="zh-CN">
-        <h2>中文</h2>
-        <p>
-          使用问题、会员问题或功能建议，请发邮件联系开发者。我们会通过同一邮箱回复。
-        </p>
-        <p>
-          邮箱：
-          <a href="mailto:ironunicorn@163.com">ironunicorn@163.com</a>
-        </p>
-        <p>会员购买、恢复购买、退款和自动续期订阅由 Apple 处理。管理或取消订阅请使用 Apple 的订阅设置。</p>
-      </section>
+        <section class="contact-card">
+          <p lang="zh-CN">邮箱</p>
+          <p lang="en">Email</p>
+          <a class="button" href="mailto:ironunicorn@163.com"
+            >ironunicorn@163.com</a
+          >
+        </section>
 
-      <section lang="en">
-        <h2>English</h2>
-        <p>
-          For help with the app, membership questions, or feature suggestions,
-          email the developer. Replies are sent from the same address.
+        <p class="note" lang="zh-CN">
+          终身会员的购买、恢复购买和退款由 Apple 处理。也可在应用内打开「反馈与联系」。
         </p>
-        <p>
-          Email:
-          <a href="mailto:ironunicorn@163.com">ironunicorn@163.com</a>
+        <p class="note" lang="en">
+          Lifetime membership purchases, restorations, and refunds are handled
+          by Apple. You can also use Feedback &amp; contact in the app.
         </p>
-        <p>
-          Membership purchases, restorations, refunds, and auto-renewing
-          subscriptions are handled by Apple. To manage or cancel a
-          subscription, use Apple Subscription settings.
-        </p>
-      </section>
+      </div>
     </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <span>扒舞搭子 / DanceCopilot</span>
+        <a href="mailto:ironunicorn@163.com">ironunicorn@163.com</a>
+      </div>
+    </footer>
+    <script src="../lang.js"></script>
   </body>
 </html>

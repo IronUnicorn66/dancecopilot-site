@@ -4,38 +4,113 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>扒舞搭子 / DanceCopilot</title>
+    <meta
+      name="description"
+      content="扒舞搭子是一款离线优先的练舞工具。视频、节拍和练习记录默认留在本机。"
+    />
+    <link rel="icon" href="assets/favicon.png" type="image/png" />
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <header class="site-header">
+      <div class="wrap">
+        <a class="brand" href="/">
+          <img src="assets/apple-touch-icon.png" width="36" height="36" alt="" />
+          <span class="brand-text">
+            <span class="brand-zh">扒舞搭子</span>
+            <span class="brand-en">DanceCopilot</span>
+          </span>
+        </a>
+        <nav>
+          <a href="/" aria-current="page"
+            ><span lang="zh-CN">首页</span><span lang="en">Home</span></a
+          >
+          <a href="/support"
+            ><span lang="zh-CN">支持</span><span lang="en">Support</span></a
+          >
+          <a href="/privacy"
+            ><span lang="zh-CN">隐私</span><span lang="en">Privacy</span></a
+          >
+        </nav>
+        <div class="lang">
+          <button type="button" data-lang="zh" aria-pressed="true">中文</button>
+          <button type="button" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+      </div>
+    </header>
+
     <main>
-      <nav>
-        <a href="/" aria-current="page">首页 / Home</a>
-        <a href="/support">支持 / Support</a>
-        <a href="/privacy">隐私 / Privacy</a>
-      </nav>
-      <h1>扒舞搭子 / DanceCopilot</h1>
-      <p class="meta">离线优先的练舞工具</p>
+      <div class="wrap">
+        <header class="hero">
+          <p class="kicker" lang="zh-CN">离线优先</p>
+          <p class="kicker" lang="en">Offline first</p>
+          <h1 lang="zh-CN">扒舞搭子</h1>
+          <h1 lang="en">DanceCopilot</h1>
+          <p class="lede" lang="zh-CN">
+            在自己的手机上拆解、跟练和记录舞蹈。视频处理、节拍分析和练习记录默认留在本机。
+          </p>
+          <p class="lede" lang="en">
+            Break down, follow, and record dances on your own iPhone. Video
+            processing, beat analysis, and practice records stay on device by
+            default.
+          </p>
+        </header>
 
-      <section lang="zh-CN">
-        <h2>中文</h2>
-        <p>
-          扒舞搭子帮助你在自己的手机上拆解、跟练和记录舞蹈。视频处理、节拍分析和练习记录默认留在本机，不提供注册账号，也不收集用于广告或分析的遥测数据。
-        </p>
-        <p>会员购买与恢复购买由 Apple 处理。如需帮助，请查看支持页；数据处理说明见隐私政策。</p>
-      </section>
+        <section class="facts">
+          <article class="fact">
+            <h2 lang="zh-CN">本机拆解跟练</h2>
+            <h2 lang="en">Practice on this device</h2>
+            <p lang="zh-CN">
+              导入自己的视频，分段跟练。处理过程留在这台 iPhone 上，不经过我们的云端。
+            </p>
+            <p lang="en">
+              Import your own videos and practice in sections. Processing stays
+              on this iPhone and does not go through our cloud.
+            </p>
+          </article>
+          <article class="fact">
+            <h2 lang="zh-CN">节拍与练习记录</h2>
+            <h2 lang="en">Beats and practice records</h2>
+            <p lang="zh-CN">
+              节拍分析和练习记录保存在设备本地，方便反复回看和继续练习。
+            </p>
+            <p lang="en">
+              Beat analysis and practice records are saved locally, so you can
+              review and continue later.
+            </p>
+          </article>
+          <article class="fact">
+            <h2 lang="zh-CN">无账号，无广告遥测</h2>
+            <h2 lang="en">No account, no ad telemetry</h2>
+            <p lang="zh-CN">
+              不提供注册账号，也不收集用于广告或分析的遥测数据。会员购买由 Apple 处理。
+            </p>
+            <p lang="en">
+              There is no registration, and no advertising or analytics
+              telemetry. Membership purchases are handled by Apple.
+            </p>
+          </article>
+        </section>
 
-      <section lang="en">
-        <h2>English</h2>
-        <p>
-          DanceCopilot is an offline-first dance practice app. Video processing,
-          beat analysis, and practice records stay on your device. There is no
-          account system and no advertising or analytics telemetry.
+        <p class="page-links">
+          <a href="/support"
+            ><span lang="zh-CN">需要帮助</span><span lang="en">Get support</span></a
+          >
+          <a href="/privacy"
+            ><span lang="zh-CN">隐私政策</span
+            ><span lang="en">Privacy policy</span></a
+          >
         </p>
-        <p>
-          Apple handles membership purchases and restorations. See the support
-          page for contact details and the privacy policy for data practices.
-        </p>
-      </section>
+      </div>
     </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <span>扒舞搭子 / DanceCopilot</span>
+        <a href="mailto:ironunicorn@163.com">ironunicorn@163.com</a>
+      </div>
+    </footer>
+    <script src="lang.js"></script>
   </body>
 </html>
