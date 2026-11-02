@@ -1,0 +1,25 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": [
+          "772S256YAH.cn.dancecopilot.app"
+        ],
+        "components": [
+          {
+            "/": "/invite"
+          },
+          {
+            "/": "/invite/*"
+          },
+          {
+            "/": "/rewards"
+          },
+          {
+            "/": "/rewards/*"
+          }
+        ]
+      }
+    ]
+  }
+}
