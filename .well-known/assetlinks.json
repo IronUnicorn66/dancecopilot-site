@@ -1,0 +1,14 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "cn.dancecopilot.app",
+      "sha256_cert_fingerprints": [
+        "33:D9:8A:F8:45:9C:0D:83:C6:3B:E6:EE:13:71:11:03:A3:49:F9:82:47:DC:1D:CE:D1:05:9A:04:19:11:71:3C"
+      ]
+    }
+  }
+]

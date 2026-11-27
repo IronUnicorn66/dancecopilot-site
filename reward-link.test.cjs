@@ -4,10 +4,10 @@ const fs = require("node:fs");
 const vm = require("node:vm");
 const source = fs.readFileSync(__dirname + "/reward-link.js", "utf8");
 
-function render(pathname, search) {
+function render(pathname, search, userAgent = "iPhone") {
   const nodes = { invalid: { hidden: true }, code: {}, "open-app": { hidden: true } };
   vm.runInNewContext(source, {
-    location: { pathname, search }, URLSearchParams,
+    location: { pathname, search }, navigator: { userAgent }, URLSearchParams,
     document: { getElementById: id => nodes[id] },
   });
   return nodes;
@@ -39,4 +39,13 @@ test("nickname is bounded by Unicode characters and excluded from campaigns", ()
   assert.equal(campaign.host, "rewards");
   assert.equal(campaign.searchParams.get("campaign"), "hello");
   assert.equal(campaign.searchParams.has("nickname"), false);
+});
+
+test("Android opens the signed release and preserves only the public link fields", () => {
+  const nodes = render("/invite/", "?code=public-code&nickname=%E5%B0%8F%E8%88%9E%23Intent&package=other", "Linux; Android 16");
+  assert.equal(nodes["open-app"].href,
+    "intent://dancecopilot.cn/invite/?code=public-code&nickname=%E5%B0%8F%E8%88%9E%23Intent#Intent;scheme=https;package=cn.dancecopilot.app;end");
+  assert.equal(render("/rewards/", "?campaign=hello", "Android")["open-app"].href,
+    "intent://dancecopilot.cn/rewards/?campaign=hello#Intent;scheme=https;package=cn.dancecopilot.app;end");
+  assert.equal(render("/invite/", "?code=bad%23", "Android")["open-app"].hidden, true);
 });
