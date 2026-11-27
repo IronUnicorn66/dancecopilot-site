@@ -4,10 +4,10 @@ const fs = require("node:fs");
 const vm = require("node:vm");
 const source = fs.readFileSync(__dirname + "/reward-link.js", "utf8");
 
-function render(pathname, search, userAgent = "iPhone") {
-  const nodes = { invalid: { hidden: true }, code: {}, "open-app": { hidden: true, addEventListener(type, fn) { this[type] = fn; } }, "android-alternate": { hidden: true } };
+function render(pathname, search) {
+  const nodes = { invalid: { hidden: true }, code: {}, "open-app": { hidden: true, addEventListener(type, fn) { this[type] = fn; } }, "open-help": { hidden: true } };
   vm.runInNewContext(source, {
-    location: { pathname, search }, navigator: { userAgent }, URLSearchParams,
+    location: { pathname, search }, URLSearchParams,
     document: { getElementById: id => nodes[id] },
   });
   return nodes;
@@ -41,22 +41,20 @@ test("nickname is bounded by Unicode characters and excluded from campaigns", ()
   assert.equal(campaign.searchParams.has("nickname"), false);
 });
 
-test("Android opens the signed release and preserves only the public link fields", () => {
-  const nodes = render("/invite/", "?code=public-code&nickname=%E5%B0%8F%E8%88%9E%23Intent&package=other", "Linux; Android 16");
-  assert.equal(nodes["open-app"].href,
-    "intent://dancecopilot.cn/invite/?code=public-code&nickname=%E5%B0%8F%E8%88%9E%23Intent#Intent;scheme=https;package=cn.dancecopilot.app;end");
-  assert.equal(render("/rewards/", "?campaign=hello", "Android")["open-app"].href,
-    "intent://dancecopilot.cn/rewards/?campaign=hello#Intent;scheme=https;package=cn.dancecopilot.app;end");
-  assert.equal(render("/invite/", "?code=bad%23", "Android")["open-app"].hidden, true);
+test("browsers in mobile and desktop mode use the app scheme and get confirmation guidance", () => {
+  const nodes = render("/invite/", "?code=public-code&nickname=%E5%B0%8F%E8%88%9E%23Intent&package=other");
+  assert.equal(nodes["open-app"].href, "dancecopilot://invite?code=public-code&nickname=%E5%B0%8F%E8%88%9E%23Intent");
+  assert.equal(nodes["open-help"].hidden, true);
+  nodes["open-app"].click();
+  assert.equal(nodes["open-help"].hidden, false);
+  assert.equal(render("/rewards/", "?campaign=hello")["open-app"].href, "dancecopilot://rewards?campaign=hello");
 });
 
-test("tablet in desktop mode can explicitly launch the Android package", () => {
-  const nodes = render("/invite/", "?code=friend", "Mozilla/5.0 (X11; Linux x86_64)");
-  assert.equal(nodes["android-alternate"].hidden, true);
-  nodes["open-app"].click();
-  assert.equal(nodes["android-alternate"].hidden, false);
-  assert.equal(nodes["android-alternate"].href,
-    "intent://dancecopilot.cn/invite/?code=friend#Intent;scheme=https;package=cn.dancecopilot.app;end");
-  assert.equal(render("/rewards/", "?campaign=hello", "Android")["android-alternate"].href,
-    "dancecopilot://rewards?campaign=hello");
+test("Android App Links identify only the production app", () => {
+  const statements = JSON.parse(fs.readFileSync(__dirname + "/.well-known/assetlinks.json", "utf8"));
+  assert.equal(statements.length, 1);
+  const [{relation, target}] = statements;
+  assert.deepEqual(relation, ["delegate_permission/common.handle_all_urls"]);
+  assert.equal(target.package_name, "cn.dancecopilot.app");
+  assert.match(target.sha256_cert_fingerprints[0], /^(?:[0-9A-F]{2}:){31}[0-9A-F]{2}$/);
 });
