@@ -5,7 +5,7 @@ const vm = require("node:vm");
 const source = fs.readFileSync(__dirname + "/reward-link.js", "utf8");
 
 function render(pathname, search, userAgent = "iPhone") {
-  const nodes = { invalid: { hidden: true }, code: {}, "open-app": { hidden: true } };
+  const nodes = { invalid: { hidden: true }, code: {}, "open-app": { hidden: true, addEventListener(type, fn) { this[type] = fn; } }, "android-alternate": { hidden: true } };
   vm.runInNewContext(source, {
     location: { pathname, search }, navigator: { userAgent }, URLSearchParams,
     document: { getElementById: id => nodes[id] },
@@ -48,4 +48,15 @@ test("Android opens the signed release and preserves only the public link fields
   assert.equal(render("/rewards/", "?campaign=hello", "Android")["open-app"].href,
     "intent://dancecopilot.cn/rewards/?campaign=hello#Intent;scheme=https;package=cn.dancecopilot.app;end");
   assert.equal(render("/invite/", "?code=bad%23", "Android")["open-app"].hidden, true);
+});
+
+test("tablet in desktop mode can explicitly launch the Android package", () => {
+  const nodes = render("/invite/", "?code=friend", "Mozilla/5.0 (X11; Linux x86_64)");
+  assert.equal(nodes["android-alternate"].hidden, true);
+  nodes["open-app"].click();
+  assert.equal(nodes["android-alternate"].hidden, false);
+  assert.equal(nodes["android-alternate"].href,
+    "intent://dancecopilot.cn/invite/?code=friend#Intent;scheme=https;package=cn.dancecopilot.app;end");
+  assert.equal(render("/rewards/", "?campaign=hello", "Android")["android-alternate"].href,
+    "dancecopilot://rewards?campaign=hello");
 });

@@ -14,8 +14,16 @@
     nickname = Array.from(nickname.replace(/[\x00-\x1F\x7F]/g, "").trim()).slice(0, 80).join("");
     if (nickname) query += "&nickname=" + encodeURIComponent(nickname);
   }
-  link.href = /Android/i.test(navigator.userAgent)
-    ? "intent://dancecopilot.cn/" + route + "/?" + query + "#Intent;scheme=https;package=cn.dancecopilot.app;end"
-    : "dancecopilot://" + route + "?" + query;
+  var appScheme = "dancecopilot://" + route + "?" + query;
+  var androidIntent = "intent://dancecopilot.cn/" + route + "/?" + query + "#Intent;scheme=https;package=cn.dancecopilot.app;end";
+  var android = /Android/i.test(navigator.userAgent) ||
+    (navigator.userAgentData && navigator.userAgentData.platform === "Android");
+  link.href = android ? androidIntent : appScheme;
+  var alternate = document.getElementById("android-alternate");
+  alternate.href = android ? appScheme : androidIntent;
+  if (!/iPhone|iPod|iPad/i.test(navigator.userAgent) &&
+      !(navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1)) {
+    link.addEventListener("click", function () { alternate.hidden = false; });
+  }
   link.hidden = false;
 })();
